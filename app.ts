@@ -15,12 +15,12 @@ async function main(text:any, language:string, destination: string) {
 
     const merging = new Merge(text);
 
-    const sendResult = new SendText();
+    const sendingResult = new SendText();
 
     if (Array.isArray(englishArray)) {
         const englishText = merging.returnText(englishArray, language);
         console.log(englishText);
-        sendResult.sendresult(destination, englishText);
+        sendingResult.sendResult(destination, englishText);
     }
 }
 

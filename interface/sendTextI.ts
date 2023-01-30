@@ -1,4 +1,4 @@
 
 export interface SendTextI {
-    sendresult(file: string, text: any ):void;
+    sendResult(file: string, text: any ):void;
 }
