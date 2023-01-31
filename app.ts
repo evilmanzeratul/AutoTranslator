@@ -1,27 +1,32 @@
 import { Translator } from "./class/translator";
 import { TextParser } from "./class/textParser";
 import { SendText } from "./class/sendText";
-import { Merge } from "./class/merge";
 import { pl } from "./text/text";
 
-async function main(text:any, language:string, destination: string) {
-    const polichText = new TextParser(text);
+async function main() {
 
-    const polishArray = polichText.getTextToArray();
+    const polishText = new TextParser(pl); 
+
+    const polishArray = polishText.getTextToArray();
 
     const translation = new Translator(polishArray);
 
-    const englishArray = await translation.translateText(language).catch((err) => console.log(err, "translator nie działa"));
+    const englishArray = await translation.translateText("en").catch((err) => console.log(err, "translator nie działa"));
 
-    const merging = new Merge(text);
+    const spanishArray = await translation.translateText("es").catch((err) => console.log(err, "translator nie działa"));
 
     const sendingResult = new SendText();
 
     if (Array.isArray(englishArray)) {
-        const englishText = merging.returnText(englishArray, language);
+        const englishText = polishText.returnText(englishArray, "en");
         console.log(englishText);
-        sendingResult.sendResult(destination, englishText);
+        sendingResult.sendResult("en.json", englishText);
+    }
+    if (Array.isArray(spanishArray)) {
+        const spanishText = polishText.returnText(spanishArray, "es");
+        console.log(spanishText);
+        sendingResult.sendResult("esp.json", spanishText);
     }
 }
 
-main(pl,"en","en.json").catch((err) => console.log(err, "main nie działa"));
+main().catch((err) => console.log(err, "main nie działa"));
