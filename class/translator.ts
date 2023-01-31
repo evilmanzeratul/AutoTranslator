@@ -4,16 +4,13 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export class Translator implements TranslatorI { 
-    textObject : string[];
+    
     CREDENTIALS = JSON.parse(process.env.CREDENTIALS!);
 
     translate = new Translate({
         credentials: this.CREDENTIALS,                       
         projectId: this.CREDENTIALS.project_id
     })
-    constructor(textObject: any){
-        this.textObject = textObject;
-    }
 
     async detectLanguage(text: string) {
         try {      
@@ -24,10 +21,10 @@ export class Translator implements TranslatorI {
             return 0;
         }
     }
-    async translateText(targetLanguage: string) {
+    async translateText(targetLanguage: string, textObject: string[]) {
         try {
             const resultArr : string[] = [];
-            let [translations] = await this.translate.translate(this.textObject, targetLanguage);
+            let [translations] = await this.translate.translate(textObject, targetLanguage);
             translations = Array.isArray(translations) ? translations : [translations];
             translations.forEach((translation: string) => {
                 resultArr.push(translation);

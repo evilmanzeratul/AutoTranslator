@@ -5,29 +5,25 @@ import { pl } from "./text/text";
 
 async function main() {
 
-    const polishText = new TextParser(pl);
+    const textObjectTools = new TextParser();
 
-    const polishArray = polishText.getTextToArray();
+    const polishArray = textObjectTools.getTextToArray(pl);
 
-    const translationFromPolish = new Translator(polishArray);
+    const translation = new Translator();
 
-    const englishArrayAfterTranslation = await translationFromPolish.translateText("en").catch((err) => console.log(err, "translator nie działa"));
+    const englishArrayAfterTranslation = await translation.translateText("en", polishArray).catch((err) => console.log(err, "translator nie działa"));
 
     const sendingResult = new SendText();
 
-    const en = polishText.returnText(englishArrayAfterTranslation, "en");
+    const en = textObjectTools.returnText(englishArrayAfterTranslation, "en",pl);
     console.log(en);
     sendingResult.sendResult("en.json", en);
 
-    const englishText = new TextParser(en);
+    const englishArray = textObjectTools.getTextToArray(en);
 
-    const englishArray = englishText.getTextToArray();
+    const spanishArrayAfterTranslation = await translation.translateText("es", englishArray).catch((err) => console.log(err, "translator nie działa"));
 
-    const translationFromEnglish = new Translator(englishArray);
-
-    const spanishArrayAfterTranslation = await translationFromEnglish.translateText("es").catch((err) => console.log(err, "translator nie działa"));
-
-    const es = polishText.returnText(spanishArrayAfterTranslation, "es");
+    const es = textObjectTools.returnText(spanishArrayAfterTranslation, "es",en);
     console.log(es);
     sendingResult.sendResult("es.json", en);
     

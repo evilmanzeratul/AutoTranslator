@@ -1,7 +1,6 @@
 
 export interface TextparserI {
-    obj: any;
-    getTextToArray(): string[];
+    getTextToArray(obj: any): string[];
     findText(obj: any, resultArr: string[]): void;
-    returnText(resultArr: any, newLanguage: string):any;
+    returnText(resultArr: any, newLanguage: string, obj : any):any;
 }

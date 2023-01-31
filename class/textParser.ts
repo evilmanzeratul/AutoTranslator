@@ -2,14 +2,9 @@ import { TextparserI } from "../interface/textParserI";
 
 export class TextParser implements TextparserI {
 
-    obj: any;
-    constructor(obj: any) {
-        this.obj = obj;
-    }
-
-    getTextToArray(){
+    getTextToArray(obj: any){
         const resultArr: string[] = [];
-        this.findText(this.obj, resultArr);
+        this.findText(obj, resultArr);
         return resultArr;
     }
 
@@ -29,7 +24,7 @@ export class TextParser implements TextparserI {
             !(obj.includes("/new-subscriber?lang=")) ? resultArr.push(obj) : false;
         }
     }
-    returnText(resultArr: any, newLanguage: string) {
+    returnText(resultArr: any, newLanguage: string, obj : any) {
 
         let count: number = 0;
 
@@ -67,7 +62,7 @@ export class TextParser implements TextparserI {
             }
         }
 
-        const result = JSON.parse(JSON.stringify(this.obj));
+        const result = JSON.parse(JSON.stringify(obj));
         addText(result, resultArr, newLanguage);
         return result;
     }
