@@ -25,7 +25,7 @@ async function main() {
     if (Array.isArray(spanishArray)) {
         const spanishText = polishText.returnText(spanishArray, "es");
         console.log(spanishText);
-        sendingResult.sendResult("esp.json", spanishText);
+        sendingResult.sendResult("es.json", spanishText);
     }
 }
 
