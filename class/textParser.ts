@@ -29,7 +29,7 @@ export class TextParser implements TextparserI {
             !(obj.includes("/new-subscriber?lang=")) ? resultArr.push(obj) : false;
         }
     }
-    returnText(resultArr: string[], newLanguage: string) {
+    returnText(resultArr: any, newLanguage: string) {
 
         let count: number = 0;
 
