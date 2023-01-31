@@ -21,10 +21,10 @@ export class Translator implements TranslatorI {
             return 0;
         }
     }
-    async translateText(targetLanguage: string, textObject: string[]) {
+    async translateText(targetLanguage: string, textArray: string[]) {
         try {
             const resultArr : string[] = [];
-            let [translations] = await this.translate.translate(textObject, targetLanguage);
+            let [translations] = await this.translate.translate(textArray, targetLanguage);
             translations = Array.isArray(translations) ? translations : [translations];
             translations.forEach((translation: string) => {
                 resultArr.push(translation);

@@ -11,22 +11,24 @@ async function main() {
 
     const translation = new Translator();
 
-    const englishArrayAfterTranslation = await translation.translateText("en", polishArray).catch((err) => console.log(err, "translator nie działa"));
+    const englishTranslationResult = await translation.translateText("en", polishArray).catch((err) => console.log(err, "translator nie działa"));
+
+    const englishArray = englishTranslationResult as string[]
 
     const sendingResult = new SendText();
 
-    const en = textObjectTools.returnText(englishArrayAfterTranslation, "en",pl);
+    const en = textObjectTools.returnText(englishArray, "en", pl);
     console.log(en);
     sendingResult.sendResult("en.json", en);
 
-    const englishArray = textObjectTools.getTextToArray(en);
+    const spanishTranslationResult = await translation.translateText("es", englishArray).catch((err) => console.log(err, "translator nie działa"));
 
-    const spanishArrayAfterTranslation = await translation.translateText("es", englishArray).catch((err) => console.log(err, "translator nie działa"));
+    const spanishArray = spanishTranslationResult as string[]
 
-    const es = textObjectTools.returnText(spanishArrayAfterTranslation, "es",en);
+    const es = textObjectTools.returnText(spanishArray, "es", en);
     console.log(es);
     sendingResult.sendResult("es.json", en);
-    
+
 }
 
 main().catch((err) => console.log(err, "main nie działa"));
